@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Container } from '../../styles/GlobalStyles'
 
-export const ContainerProduct = styled(Container)`
+export const ContainerProduct = styled(Container)<{ $bfActive?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,7 +9,9 @@ export const ContainerProduct = styled(Container)`
   width: 100vw;
   height: 100%;
   padding: 4rem 0;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme, $bfActive }) =>
+    $bfActive ? '#0a0a0a' : theme.colors.white};
+  transition: background-color 0.6s ease;
 
   @media (width >= 80rem) {
   }

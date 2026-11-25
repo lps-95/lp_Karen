@@ -7,12 +7,14 @@ export interface Product {
   description: string
   inStock: boolean
   discount?: number
+  /** 'contain' = mostra a foto inteira (fotos horizontais, como kits) */
+  imageFit?: 'cover' | 'contain'
 }
 
 export const products: Product[] = [
   {
     id: 1,
-    currentPrice: 64.0,
+    currentPrice: 68.0,
     image: 'img1.avif',
     title: 'Ampola de Reestruturação do Córtex',
     description:
@@ -26,7 +28,7 @@ export const products: Product[] = [
     title: 'Sérum Fabulos Premium',
     description:
       'O sérun fabulos premium é o aliado ideal na reestruturação do CMC capilar, são 12 óleos essenciais que simultaneamente reparam danos na fibra e reestabelecem 18MEA, um composto de ácidos graxos indispensáveis para a saúde e integridade da fibra.',
-    inStock: true,
+    inStock: false,
   },
   {
     id: 3,
@@ -35,7 +37,7 @@ export const products: Product[] = [
     title: 'Kit Alisamento Natural',
     description:
       'Descubra o poder de uma fórmula inovadora que combina o melhor da ciência e da natureza para proporcionar resultados incríveis nos cabelos. Ideal para profissionais, o Kit Alisamento Natural oferece soluções completas para limpeza profunda e alinhamento dos fios de forma saudável e natural.',
-    inStock: true,
+    inStock: false,
   },
   {
     id: 4,
@@ -80,7 +82,7 @@ export const products: Product[] = [
     title: 'Shampoo CMC',
     description:
       'O Shampoo Rosé atua restaurando o CMC capilar, devolvendo 18-metil eicosanoico à fibra.',
-    inStock: false,
+    inStock: true,
   },
   {
     id: 9,
@@ -111,11 +113,21 @@ export const products: Product[] = [
   },
   {
     id: 12,
-    currentPrice: 46.9,
+    currentPrice: 55.0,
     image: 'balm.avif',
     title: 'Perfume e Balm',
     description:
       'Balm Restaurador do CMC Capilar. Tratamento inteligente que repara o CMC, camada responsável pela força, brilho e retenção de água dentro do fio.',
+    inStock: true,
+  },
+  {
+    id: 13,
+    currentPrice: 354.7,
+    image: 'help-my-hair.avif',
+    imageFit: 'contain',
+    title: 'Kit Help My Hair SOS',
+    description:
+      'Tratamento tricológico profissional para cabelos elásticos, emborrachados, fragilizados e quebradiços. Shampoo, Máscara e Fluido SOS atuam no CMC e no córtex, repondo componentes estruturais e devolvendo resistência e integridade à fibra. Linha de uso profissional, não indicada para manutenção diária.',
     inStock: true,
   },
 ]

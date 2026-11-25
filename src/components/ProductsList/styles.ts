@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 type BFProps = { $bfActive?: boolean }
 
-export const Section = styled.section`
+export const Section = styled.section<BFProps>`
   width: 100%;
   max-width: 76.5rem;
   margin-inline: auto;
@@ -18,6 +18,26 @@ export const Section = styled.section`
     font-weight: bold;
     text-align: center;
   }
+
+  .bf-eyebrow {
+    display: block;
+    text-align: center;
+    margin-bottom: 0.75rem;
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #d8be93;
+  }
+
+  ${({ $bfActive }) =>
+    $bfActive &&
+    css`
+      h2 {
+        color: #ffffff;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+      }
+    `}
 `
 
 export const Container = styled.div`
@@ -87,26 +107,18 @@ export const CardWrapper = styled.div<BFProps>`
   ${({ $bfActive }) =>
     $bfActive &&
     css`
-      background: linear-gradient(180deg, #fdfbf7 0%, #f8f3eb 100%);
-      border: 1px solid rgba(216, 190, 147, 0.45);
-      box-shadow:
-        0 14px 36px rgba(3, 47, 49, 0.1),
-        0 4px 14px rgba(3, 47, 49, 0.06);
+      background: #141311;
+      border: 1px solid rgba(216, 190, 147, 0.25);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 
       &::before {
-        opacity: 1;
-        background: linear-gradient(
-          135deg,
-          rgba(3, 47, 49, 0.05) 0%,
-          rgba(216, 190, 147, 0.08) 100%
-        );
+        opacity: 0;
       }
 
       &:hover {
         transform: translateY(-8px);
-        box-shadow:
-          0 22px 48px rgba(3, 47, 49, 0.14),
-          0 8px 20px rgba(3, 47, 49, 0.08);
+        border-color: rgba(216, 190, 147, 0.6);
+        box-shadow: 0 26px 52px rgba(0, 0, 0, 0.6);
       }
     `}
 `
@@ -154,6 +166,16 @@ export const Box = styled.div<BFProps>`
       filter: brightness(1.03) contrast(1.03);
     }
 
+    img.fit-contain {
+      object-fit: contain;
+      padding: 1.25rem 1rem 3.75rem;
+      background: #f6f6f6;
+    }
+
+    ${CardWrapper}:hover & img.fit-contain {
+      transform: scale(1.02);
+    }
+
     ${({ $bfActive }) =>
       $bfActive &&
       css`
@@ -163,7 +185,65 @@ export const Box = styled.div<BFProps>`
           transform: scale(1.06);
           filter: brightness(1.04) contrast(1.04) saturate(1.02);
         }
+
+        .discount-tag.discount-tag {
+          padding: 0.45rem 0.85rem;
+          background: #0a0a0a;
+          color: #f3e3c3;
+          border: 1px solid rgba(216, 190, 147, 0.6);
+          font-family: 'LeagueGothic', sans-serif;
+          font-size: 1.5rem;
+          font-weight: 400;
+          line-height: 1;
+          letter-spacing: 0.04em;
+          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .icon.icon {
+          background: #0a0a0a;
+          border-top: 1px solid rgba(216, 190, 147, 0.45);
+
+          &.outOfStock {
+            background: none;
+            border-top: 0;
+          }
+
+          .iconBox {
+            color: #f3e3c3;
+          }
+        }
       `}
+
+    &.outOfStock img {
+      filter: grayscale(1) brightness(0.9);
+    }
+
+    ${CardWrapper}:hover &.outOfStock img {
+      transform: none;
+      filter: grayscale(1) brightness(0.9);
+    }
+
+    .outOfStockText {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 10, 10, 0.5);
+
+      span {
+        padding: 0.6rem 1.4rem;
+        border-radius: 999px;
+        border: 1px solid #d8be93;
+        background: #0a0a0a;
+        color: #f3e3c3;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+      }
+    }
 
     .discount-tag {
       position: absolute;
@@ -238,10 +318,10 @@ export const Title = styled.h3<BFProps>`
   ${({ $bfActive }) =>
     $bfActive &&
     css`
-      border-top: 1px solid rgba(216, 190, 147, 0.35);
-      border-bottom: 1px solid rgba(216, 190, 147, 0.35);
-      background: linear-gradient(180deg, #f7f1e9 0%, #fdfbf7 100%);
-      color: #032f31;
+      border-top: 1px solid rgba(216, 190, 147, 0.2);
+      border-bottom: 1px solid rgba(216, 190, 147, 0.2);
+      background: #141311;
+      color: #ffffff;
     `}
 `
 
@@ -264,7 +344,33 @@ export const CardContent = styled.div<BFProps>`
   ${({ $bfActive }) =>
     $bfActive &&
     css`
-      background: linear-gradient(180deg, #032f31 0%, #022c2e 100%);
+      background: #141311;
+
+      .campaign-pill.campaign-pill {
+        color: #0a0a0a;
+        background: #d8be93;
+        border-color: #d8be93;
+        font-weight: 700;
+      }
+
+      .price-from.price-from {
+        color: #a8a196;
+
+        span {
+          color: #a8a196;
+        }
+      }
+
+      .price-now.price-now {
+        font-family: 'LeagueGothic', sans-serif;
+        font-weight: 400;
+        font-size: 2.75rem;
+        letter-spacing: 0.01em;
+        background: linear-gradient(180deg, #fbefd6 0%, #e2c690 45%, #b48f55 75%, #e8cf9c 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
     `}
 
   .campaign-pill {
@@ -315,9 +421,19 @@ export const CardContent = styled.div<BFProps>`
     letter-spacing: -0.02em;
   }
 
+  .unavailable-price {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: line-through;
+    font-size: 1.4rem;
+  }
+
   .unavailable {
-    color: #c55;
+    margin-top: 0.35rem;
+    color: #d8be93;
+    font-size: 0.8rem;
     font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 `
 

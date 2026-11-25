@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { getCampaignStatus } from "@/config/birthday-campaign";
+import { getCampaignStatus, getEffectiveUnitPrice } from "@/config/black-friday";
 import { generateWhatsAppMessage } from "@/utils/whatsapp";
 import { motion } from 'framer-motion';
 import {
@@ -32,10 +32,9 @@ interface CheckoutDialogProps {
 
 type CheckoutStep = 'cart' | 'review' | 'sending';
 
-function getSafeUnitPrice(item: CartItem, isCampaignActive: boolean) {
-  if (isCampaignActive && typeof item.unitPrice === 'number') return item.unitPrice;
-  if (isCampaignActive && typeof item.promoPrice === 'number') return item.promoPrice;
-  return item.currentPrice;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getSafeUnitPrice(item: CartItem, _isCampaignActive: boolean) {
+  return getEffectiveUnitPrice(item)
 }
 
 function formatBRL(value: number) {
@@ -135,7 +134,7 @@ export function CheckoutDialog({
 
             {isCampaignActive && (
               <span className="text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-full whitespace-nowrap bg-[#032F31] text-[#D8BE93] border border-[#D8BE93]/40">
-                ✨ campanha ativa
+                Black Friday
               </span>
             )}
           </div>

@@ -1,7 +1,11 @@
 import ButtonWithEffect from '@/components/ButtonStyled/ButtonStyled'
 import { CartButton } from '@/components/CartButton'
 import { CheckoutDialog } from '@/components/CheckoutDialog'
-import { BIRTHDAY_CAMPAIGN_CONFIG, getCampaignStatus } from '@/config/birthday-campaign'
+import {
+  getDiscountedPrice,
+  getProductDiscount,
+  useCampaignStatus,
+} from '@/config/black-friday'
 import { useEffect, useMemo, useState } from 'react'
 import { Product, products } from '../../utils/data'
 import LazyImage from '../LazyImg'
@@ -20,19 +24,6 @@ type CartItem = Product & {
   appliedDiscount?: number
 }
 
-function getDiscountByProductId(productId: number) {
-  return (
-    BIRTHDAY_CAMPAIGN_CONFIG.productDiscounts[
-    productId as keyof typeof BIRTHDAY_CAMPAIGN_CONFIG.productDiscounts
-    ] ?? 0
-  )
-}
-
-function getDiscountedPrice(price: number, discount: number) {
-  const discounted = price - price * (discount / 100)
-  return Number(discounted.toFixed(2))
-}
-
 function formatBRL(value: number) {
   return `R$ ${value.toFixed(2).replace('.', ',')}`
 }
@@ -43,21 +34,11 @@ export function ProductsGrid() {
   const [toasterMessage, setToasterMessage] = useState('')
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
-  const [isCampaignActive, setIsCampaignActive] = useState(
-    getCampaignStatus() === 'live'
-  )
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsCampaignActive(getCampaignStatus() === 'live')
-    }, 60000)
-
-    return () => clearInterval(interval)
-  }, [])
+  const isCampaignActive = useCampaignStatus() === 'live'
 
   const enhancedProducts = useMemo(() => {
     return products.map((product) => {
-      const discount = getDiscountByProductId(product.id)
+      const discount = getProductDiscount(product.id)
       const promoPrice = getDiscountedPrice(product.currentPrice, discount)
 
       return {
@@ -101,7 +82,10 @@ export function ProductsGrid() {
   }, [cart])
 
   return (
-    <Section id="products">
+    <Section id="products" $bfActive={isCampaignActive}>
+      {isCampaignActive && (
+        <span className="bf-eyebrow">Ofertas por tempo limitado</span>
+      )}
       <h2>Nossos Produtos</h2>
 
       <Container>
@@ -113,19 +97,21 @@ export function ProductsGrid() {
             >
               <div className={`imgBox ${!product.inStock ? 'outOfStock' : ''}`}>
                 {isCampaignActive && product.inStock && product.discount > 0 && (
-                  <span className="discount-tag">
-                    {product.discount}% off
-                  </span>
+                  <span className="discount-tag">-{product.discount}%</span>
                 )}
 
                 <LazyImage
                   src={product.image}
                   alt={`Imagem do ${product.title}`}
                   loading="lazy"
-                  className="lazy-image"
+                  className={`lazy-image ${product.imageFit === 'contain' ? 'fit-contain' : ''}`}
                 />
 
-                {!product.inStock && <div className="outOfStockText" />}
+                {!product.inStock && (
+                  <div className="outOfStockText">
+                    <span>Esgotado</span>
+                  </div>
+                )}
 
                 <div className={`icon ${!product.inStock ? 'outOfStock' : ''}`}>
                   {product.inStock && (
@@ -142,9 +128,7 @@ export function ProductsGrid() {
                 <>
                   {isCampaignActive && product.discount > 0 ? (
                     <>
-                      <div className="campaign-pill">
-                        edição especial
-                      </div>
+                      <div className="campaign-pill">black friday</div>
 
                       <p className="price-from">
                         de <span>{formatBRL(product.currentPrice)}</span>
@@ -155,7 +139,7 @@ export function ProductsGrid() {
                       </p>
 
                       <p className="price-save">
-                        economia de{' '}
+                        você economiza{' '}
                         {formatBRL(product.currentPrice - product.calculatedPromoPrice)}
                       </p>
                     </>
@@ -166,7 +150,12 @@ export function ProductsGrid() {
                   )}
                 </>
               ) : (
-                <p className="unavailable">Produto indisponível</p>
+                <>
+                  <p className="price-default unavailable-price">
+                    {formatBRL(product.currentPrice)}
+                  </p>
+                  <p className="unavailable">Esgotado · volta em breve</p>
+                </>
               )}
             </CardContent>
           </CardWrapper>

@@ -1,7 +1,8 @@
-import { StudioBirthdayCountdown } from "@/components/BlackFridayCountdown"
+import { BlackFridayHero } from "@/components/BlackFridayBanner"
+import { BlackFridayCountdown } from "@/components/BlackFridayCountdown"
 import { Divider } from "@/components/Divider"
 import { FooterComponent } from "@/components/FooterComponent"
-import { getCampaignStatus } from "@/config/birthday-campaign"
+import { useCampaignStatus } from "@/config/black-friday"
 import { About } from "./Sessions/About"
 import { CTA } from "./Sessions/CTA"
 import { FAQ } from "./Sessions/FAQ'S"
@@ -12,11 +13,13 @@ import { TestimonialSectionComponent } from "./Sessions/Testemonials"
 import { Container } from "./styles/GlobalStyles"
 
 export const LandingPage = () => {
-  const campaignStatus = getCampaignStatus()
+  // before = faixa "começa em" | live = Black Friday | ended = página normal
+  const campaignStatus = useCampaignStatus()
 
   return (
     <>
-      {campaignStatus !== 'ended' && <StudioBirthdayCountdown />}
+      {campaignStatus === 'before' && <BlackFridayCountdown />}
+      {campaignStatus === 'live' && <BlackFridayHero />}
 
       <Container>
         <About />

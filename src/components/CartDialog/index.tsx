@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { getCampaignStatus } from "@/config/birthday-campaign";
+import { getCampaignStatus, getEffectiveUnitPrice } from "@/config/black-friday";
 import { generateWhatsAppMessage } from "@/utils/whatsapp";
 import {
   MessageCircleMore,
@@ -35,10 +35,9 @@ interface Props {
   isLoadingCheckout: boolean;
 }
 
-function getSafeUnitPrice(item: CartItem, isCampaignActive: boolean) {
-  if (isCampaignActive && typeof item.unitPrice === "number") return item.unitPrice;
-  if (isCampaignActive && typeof item.promoPrice === "number") return item.promoPrice;
-  return item.currentPrice;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getSafeUnitPrice(item: CartItem, _isCampaignActive: boolean) {
+  return getEffectiveUnitPrice(item)
 }
 
 function formatBRL(value: number) {
@@ -88,7 +87,7 @@ export function CartDialog({
 
             {isCampaignActive && (
               <span className="text-xs font-bold px-2 py-1 rounded ml-2 bg-[#032F31] text-[#D8BE93] border border-[#D8BE93]/40">
-                ✨ campanha ativa
+                Black Friday
               </span>
             )}
           </DialogTitle>

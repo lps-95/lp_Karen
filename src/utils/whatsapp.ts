@@ -1,4 +1,8 @@
-import { getCampaignStatus } from '@/config/birthday-campaign'
+import {
+  getCampaignStatus,
+  getEffectiveDiscount,
+  getEffectiveUnitPrice,
+} from '@/config/black-friday'
 import { Product } from './data'
 
 type CartItem = Product & {
@@ -6,18 +10,13 @@ type CartItem = Product & {
   appliedDiscount?: number
 }
 
-function getSafeUnitPrice(item: CartItem, isCampaignActive: boolean) {
-  if (isCampaignActive && typeof item.unitPrice === 'number')
-    return item.unitPrice
-  if (isCampaignActive && typeof item.promoPrice === 'number')
-    return item.promoPrice
-  return item.currentPrice
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getSafeUnitPrice(item: CartItem, _isCampaignActive: boolean) {
+  return getEffectiveUnitPrice(item)
 }
 
 function getSafeDiscount(item: CartItem) {
-  if (typeof item.appliedDiscount === 'number') return item.appliedDiscount
-  if (typeof item.discount === 'number') return item.discount
-  return 0
+  return getEffectiveDiscount(item.id)
 }
 
 function formatBRL(value: number) {
@@ -39,7 +38,7 @@ export function generateWhatsAppMessage(cart: CartItem[]) {
   }, {})
 
   let message = isCampaignActive
-    ? '*SOLICITAÇÃO DE COMPRA - CAMPANHA DE ANIVERSÁRIO*\n'
+    ? '*SOLICITAÇÃO DE COMPRA - BLACK FRIDAY*\n'
     : '*SOLICITAÇÃO DE COMPRA*\n'
 
   message += 'Studio Karen Frazão\n'
