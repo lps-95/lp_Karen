@@ -63,7 +63,7 @@ export const SocialIcon = styled.a`
 export const FooterText = styled.p`
   font-size: 1rem;
   margin-top: 20px;
-  color: ${({ theme }) => theme.colors.secondaryLightfooter};
+  color: #ffffff;
 
   @media (min-width: 80rem) {
     font-size: 1.2rem; // Aumenta a fonte em telas maiores

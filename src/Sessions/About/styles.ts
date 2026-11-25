@@ -148,7 +148,7 @@ export const AboutContent = styled.main`
       animation: text-focus-in 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     }
 
-    & h3 {
+    & h2 {
       font-family: 'Baskervville', serif;
       font-size: 1rem;
       letter-spacing: 5px;
@@ -220,7 +220,7 @@ export const AboutContent = styled.main`
         animation: text-focus-in 0.8s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
       }
 
-      & h3 {
+      & h2 {
         font-size: 1.5rem;
         text-align: center;
         letter-spacing: 10px;
@@ -237,7 +237,7 @@ export const AboutContent = styled.main`
       width: 1400px;
     }
 
-    & h3 {
+    & h2 {
       font-size: 4rem;
       font-weight: bold;
     }

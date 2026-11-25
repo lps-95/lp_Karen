@@ -10,7 +10,7 @@ const product = {
     devolver a saúde, força, brilho e resistência, tanto para o couro
     cabeludo, quanto para os fios.
   `,
-  imageUrl: "kitequ.jpeg",
+  imageUrl: "kitequ.avif",
   purchaseLink:
     "https://wa.me/5592993787566?text=Olá,%20gostaria%20de%20comprar%20o%20kit%20Equilíbrio%20THERAPY",
 }
@@ -27,17 +27,19 @@ export function PresentationKit() {
           data-aos-anchor-placement='center-bottom'
           src={imageUrl}
           alt={`Imagem do ${title}`}
+          loading='lazy'
+          decoding='async'
         />
 
         {/* Conteúdo do produto */}
         <ContentKit>
-          <h1
+          <h2
             id='product-title'
             data-aos='fade-left'
             data-aos-anchor-placement='center-bottom'
           >
             {title}
-          </h1>
+          </h2>
 
           {/* Avaliação */}
           <LazyImage

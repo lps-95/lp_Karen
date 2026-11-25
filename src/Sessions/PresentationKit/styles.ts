@@ -53,7 +53,7 @@ export const ContentKit = styled.article`
 
   width: 100%;
 
-  & h1 {
+  & h2 {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
     color: ${({ theme }) => theme.colors.green};
     font-family: 'Melodrama', serif;
@@ -73,7 +73,7 @@ export const ContentKit = styled.article`
   @media (min-width: 80rem) {
     width: 50%;
 
-    & h1 {
+    & h2 {
       font-size: 3rem;
       text-align: center;
     }

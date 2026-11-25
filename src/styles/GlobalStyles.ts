@@ -1,8 +1,3 @@
-import '@fontsource/roboto/300.css'
-import '@fontsource/roboto/400.css'
-import '@fontsource/roboto/500.css'
-import '@fontsource/roboto/700.css'
-import 'animate.css'
 import styled, { createGlobalStyle } from 'styled-components'
 
 import 'slick-carousel/slick/slick-theme.css'
@@ -10,18 +5,13 @@ import 'slick-carousel/slick/slick.css'
 
 export const GlobalStyles = createGlobalStyle`
 @font-face {
-  font-family: 'CustomFont';
-  src: url('customfont.woff2') format('woff2');
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'AlexanderLettering';
   src: url('/fonts/AlexanderLettering.woff2') format('woff2'),
        url('/fonts/AlexanderLettering.woff') format('woff'),
        url('/fonts/AlexanderLettering.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -31,24 +21,7 @@ export const GlobalStyles = createGlobalStyle`
        url('/fonts/LeagueGothic/LeagueGothic-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-}
-
-@font-face {
-  font-family: 'Finesse';
-  src: url('/fonts/Finesse/Finesse-Flair.woff2') format('woff2'),
-       url('/fonts/Finesse/Finesse-Flair.woff') format('woff'),
-       url('/fonts/Finesse/Finesse-Flair.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'NewTitle';
-  src: url('/fonts/NewTitle/NewTitle-Regular.woff2') format('woff2'),
-       url('/fonts/NewTitle/NewTitle-Regular.woff') format('woff'),
-       url('/fonts/NewTitle/NewTitle-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -58,6 +31,7 @@ export const GlobalStyles = createGlobalStyle`
        url('/fonts/Melodrama/Melodrama-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -67,6 +41,7 @@ export const GlobalStyles = createGlobalStyle`
        url('/fonts/Stardom/Stardom-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
   *,

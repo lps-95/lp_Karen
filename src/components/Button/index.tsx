@@ -99,7 +99,7 @@ const StyledButton = styled.button<{
 // Alterando para renderizar como <a> se houver href
 export const Button: React.FC<StyledButtonProps> = ({
   color = "#fff", // Valor padrão
-  backgroundColor = "red", // Valor padrão
+  backgroundColor = "#C62828", // Valor padrão (vermelho com contraste AA)
   size = "small", // Valor padrão
   href,
   width,

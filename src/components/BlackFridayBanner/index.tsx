@@ -6,7 +6,6 @@ import {
   useTimeLeft,
 } from '@/config/black-friday'
 import { products } from '@/utils/data'
-import confetti from 'canvas-confetti'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 
@@ -45,7 +44,8 @@ export function BlackFridayHero() {
     : 0
 
   useEffect(() => {
-    const t = window.setTimeout(() => {
+    const t = window.setTimeout(async () => {
+      const { default: confetti } = await import('canvas-confetti')
       confetti({
         particleCount: 90,
         spread: 75,
@@ -94,11 +94,11 @@ export function BlackFridayHero() {
               </span>
             </div>
 
-            <h1 className="m-0 font-['LeagueGothic'] text-[96px] font-normal uppercase leading-[0.86] sm:text-[120px] md:text-[148px]">
+            <p className="m-0 font-['LeagueGothic'] text-[96px] font-normal uppercase leading-[0.86] sm:text-[120px] md:text-[148px]">
               <span className={GOLD_FOIL}>Black</span>
               <br />
               Friday
-            </h1>
+            </p>
 
             <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
               <span className="font-['Stardom'] text-[32px] text-[#F3E3C3] md:text-[40px]">

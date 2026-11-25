@@ -1,12 +1,11 @@
 import ButtonWithEffect from '@/components/ButtonStyled/ButtonStyled'
 import { CartButton } from '@/components/CartButton'
-import { CheckoutDialog } from '@/components/CheckoutDialog'
 import {
   getDiscountedPrice,
   getProductDiscount,
   useCampaignStatus,
 } from '@/config/black-friday'
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { Product, products } from '../../utils/data'
 import LazyImage from '../LazyImg'
 import { Toaster } from '../Toaster'
@@ -24,6 +23,10 @@ type CartItem = Product & {
   appliedDiscount?: number
 }
 
+const CheckoutDialog = lazy(() =>
+  import('@/components/CheckoutDialog').then((m) => ({ default: m.CheckoutDialog }))
+)
+
 function formatBRL(value: number) {
   return `R$ ${value.toFixed(2).replace('.', ',')}`
 }
@@ -33,6 +36,11 @@ export function ProductsGrid() {
   const [showToaster, setShowToaster] = useState(false)
   const [toasterMessage, setToasterMessage] = useState('')
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [checkoutLoaded, setCheckoutLoaded] = useState(false)
+
+  useEffect(() => {
+    if (isDialogOpen) setCheckoutLoaded(true)
+  }, [isDialogOpen])
 
   const isCampaignActive = useCampaignStatus() === 'live'
 
@@ -115,7 +123,10 @@ export function ProductsGrid() {
 
                 <div className={`icon ${!product.inStock ? 'outOfStock' : ''}`}>
                   {product.inStock && (
-                    <ButtonWithEffect onClick={() => addToCart(product)} />
+                    <ButtonWithEffect
+                      onClick={() => addToCart(product)}
+                      productTitle={product.title}
+                    />
                   )}
                 </div>
               </div>
@@ -169,31 +180,35 @@ export function ProductsGrid() {
         />
       )}
 
-      <CheckoutDialog
-        items={cart}
-        isOpen={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-        onRemove={(id: number) =>
-          setCart((prev) => prev.filter((item) => item.id !== id))
-        }
-        onIncrement={(id: number) => {
-          setCart((prev) => {
-            const found = prev.find((item) => item.id === id)
-            return found ? [...prev, found] : prev
-          })
-        }}
-        onDecrement={(id: number) => {
-          setCart((prev) => {
-            const index = prev.findIndex((item) => item.id === id)
-            if (index !== -1) {
-              const newCart = [...prev]
-              newCart.splice(index, 1)
-              return newCart
+      {checkoutLoaded && (
+        <Suspense fallback={null}>
+          <CheckoutDialog
+            items={cart}
+            isOpen={isDialogOpen}
+            onOpenChange={setIsDialogOpen}
+            onRemove={(id: number) =>
+              setCart((prev) => prev.filter((item) => item.id !== id))
             }
-            return prev
-          })
-        }}
-      />
+            onIncrement={(id: number) => {
+              setCart((prev) => {
+                const found = prev.find((item) => item.id === id)
+                return found ? [...prev, found] : prev
+              })
+            }}
+            onDecrement={(id: number) => {
+              setCart((prev) => {
+                const index = prev.findIndex((item) => item.id === id)
+                if (index !== -1) {
+                  const newCart = [...prev]
+                  newCart.splice(index, 1)
+                  return newCart
+                }
+                return prev
+              })
+            }}
+          />
+        </Suspense>
+      )}
 
       <Toaster
         message={toasterMessage}

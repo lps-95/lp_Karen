@@ -2,48 +2,81 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>%SITE_TITLE%</title>
+    <meta name="description" content="%SITE_DESCRIPTION%" />
+    <link rel="canonical" href="%SITE_URL%/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#032F31" />
+
+    <!-- Prévia de link (WhatsApp, Instagram, Facebook) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Studio Karen Frazão" />
+    <meta property="og:title" content="%SITE_TITLE%" />
+    <meta property="og:description" content="%SITE_DESCRIPTION%" />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%SITE_OG_IMAGE%" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Studio Karen Frazão · Fabulos Hair" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="%SITE_TITLE%" />
+    <meta name="twitter:description" content="%SITE_DESCRIPTION%" />
+    <meta name="twitter:image" content="%SITE_OG_IMAGE%" />
+
+    <link rel="icon" type="image/png" href="/image.png" />
+    <link rel="apple-touch-icon" href="/image.png" />
+
+    <!-- Dados estruturados (gerados no build a partir do catálogo) -->
+    <!--seo:jsonld-->
+
+    <!-- Quem roda JS vê o app; o resumo em HTML fica só para robôs sem JS -->
+    <script>
+      document.documentElement.classList.add('js')
+    </script>
+    <style>
+      .js #seo-fallback { display: none; }
+      #seo-fallback { max-width: 760px; margin: 0 auto; padding: 24px 16px; font-family: system-ui, sans-serif; color: #133525; background: #fff; line-height: 1.5; }
+    </style>
+
+    <!-- Fontes do Google sem bloquear a renderização -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      />
+    </noscript>
 
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-972P4ME77F"
-    ></script>
+    <!-- Google tag (gtag.js): carregado depois da página, sem disputar com o conteúdo -->
     <script>
       window.dataLayer = window.dataLayer || []
       function gtag() {
         dataLayer.push(arguments)
       }
       gtag('js', new Date())
-
       gtag('config', 'G-972P4ME77F')
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          var s = document.createElement('script')
+          s.async = true
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-972P4ME77F'
+          document.head.appendChild(s)
+        }, 1500)
+      })
     </script>
-
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link
-      href="https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/cssanimation.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Jura:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mr+De+Haviland&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" type="image/svg+xml" href="/image.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Karen Frazão - Fabulos Hair</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--seo:fallback--></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-    <script>
-      AOS.init()
-    </script>
-    <script
-      type="text/javascript"
-      src=" https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/letteranimation.min.js"
-    ></script>
   </body>
 </html>

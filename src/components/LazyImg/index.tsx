@@ -11,7 +11,7 @@ const LazyImage: React.FC<LazyImageProps> = ({ fallbackSrc, ...props }) => {
     }
   };
 
-  return <img {...props} onError={handleError} loading="lazy" />;
+  return <img loading="lazy" {...props} onError={handleError} />;
 };
 
 export default LazyImage;

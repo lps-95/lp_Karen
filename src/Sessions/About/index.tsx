@@ -16,13 +16,15 @@ export function About() {
         src='image.png'
         alt='Logo de Karen Frazão'
         className='puff-in-center'
-        loading='lazy'
-        aria-placeholder='Logo de Karen Frazão'
+        loading='eager'
+        fetchPriority='high'
+        width={150}
+        height={150}
       />
       <AboutContent>
         <div className='text'>
           <h1 className='tracking-in-expand-fwd'>Karen Frazão</h1>
-          <h3 className='tracking-in-expand-fwd'>Fabulos Hair</h3>
+          <h2 className='tracking-in-expand-fwd'>Fabulos Hair</h2>
           <p className='tracking-in-expand-fwd'>Saúde e Beleza</p>
         </div>
         <Button

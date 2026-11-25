@@ -1,4 +1,6 @@
 import '@/styles/Global.css'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ThemeProvider } from 'styled-components'
@@ -21,3 +23,6 @@ createRoot(document.getElementById('root')!).render(
     </ThemeProvider>
   </StrictMode>
 )
+
+// Animações ao rolar a página (antes vinham de um CDN externo sem versão fixa)
+AOS.init()
