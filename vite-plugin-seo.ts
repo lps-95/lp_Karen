@@ -11,7 +11,7 @@
  */
 import type { Plugin } from 'vite'
 import { faqData } from './src/components/FAQ\'sComponets/data.ts'
-import { SITE, hasAddress } from './src/config/site.ts'
+import { SITE, fullAddress, hasAddress, mapsUrl } from './src/config/site.ts'
 import { products } from './src/utils/data.ts'
 
 const abs = (path: string) => `${SITE.url}/${path.replace(/^\//, '')}`
@@ -85,6 +85,12 @@ function buildJsonLd() {
         addressCountry: a.country,
       },
       ...(SITE.openingHours.length ? { openingHours: SITE.openingHours } : {}),
+      hasMap: mapsUrl,
+      areaServed: { '@type': 'City', name: a.city },
+      makesOffer: SITE.specialties.map((s) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: s },
+      })),
       sameAs: [SITE.instagram],
     })
   }
@@ -145,13 +151,8 @@ function buildFallbackHtml() {
     .map((f) => `<dt>${esc(clean(f.question))}</dt><dd>${esc(clean(f.answer))}</dd>`)
     .join('')
 
-  const a = SITE.address
   const addressLine = hasAddress
-    ? `<p>Endereço: ${esc(
-        [a.streetAddress, a.neighborhood, `${a.city} - ${a.state}`, a.postalCode]
-          .filter(Boolean)
-          .join(', ')
-      )}</p>`
+    ? `<p>Endereço do Studio: <a href="${esc(mapsUrl)}">${esc(fullAddress)}</a></p><p>Atendimento: segunda a sábado, das 9h às 17h.</p>`
     : ''
 
   return `<div id="seo-fallback">
@@ -204,12 +205,8 @@ function buildLlmsTxt() {
     `- Instagram: ${SITE.instagram}`,
   ]
   if (hasAddress) {
-    const a = SITE.address
-    lines.push(
-      `- Endereço: ${[a.streetAddress, a.neighborhood, `${a.city} - ${a.state}`, a.postalCode]
-        .filter(Boolean)
-        .join(', ')}`
-    )
+    lines.push(`- Endereço do Studio: ${fullAddress} (${mapsUrl})`)
+    lines.push('- Atendimento presencial: segunda a sábado, das 9h às 17h')
   }
   return lines.join('\n') + '\n'
 }

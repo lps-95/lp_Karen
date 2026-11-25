@@ -7,9 +7,9 @@ export const SITE = {
   name: 'Studio Karen Frazão',
   brand: 'Fabulos Hair',
   founder: 'Karen Frazão',
-  title: 'Studio Karen Frazão · Fabulos Hair | Tricologia e cosméticos capilares',
+  title: 'Studio Karen Frazão · Fabulos Hair | Tricologia em Manaus e cosméticos capilares',
   description:
-    'Tricologia, terapia capilar integrativa e cosméticos Fabulos Hair com ativos da Amazônia: tratamento de caspa, queda e cabelos danificados, alisamento natural e reconstrução do CMC. Entrega para todo o Brasil.',
+    'Studio de tricologia e terapia capilar integrativa em Manaus e cosméticos Fabulos Hair com ativos da Amazônia: tratamento de caspa, queda e cabelos danificados, alisamento natural e reconstrução do CMC. Entrega para todo o Brasil.',
   shortDescription:
     'Studio de tricologia e terapia capilar integrativa e marca de cosméticos capilares Fabulos Hair, com ativos da Amazônia e liberação da Anvisa.',
   phone: '+55 92 99378-7566',
@@ -30,15 +30,28 @@ export const SITE = {
   // Endereço do Studio (atendimento presencial).
   // Preencha para ativar o cadastro como negócio local (HairSalon) no Google.
   address: {
-    streetAddress: '',
-    neighborhood: '',
-    city: '',
+    streetAddress: 'R. Pres. Vargas, 39-21',
+    neighborhood: 'Zumbi dos Palmares',
+    city: 'Manaus',
     state: 'AM',
-    postalCode: '',
+    postalCode: '69084-444',
     country: 'BR',
   },
   // Ex.: ['Mo-Fr 09:00-18:00', 'Sa 09:00-13:00']
-  openingHours: [] as string[],
+  openingHours: ['Mo-Sa 09:00-17:00'] as string[],
 } as const
 
 export const hasAddress = Boolean(SITE.address.streetAddress && SITE.address.city)
+
+export const fullAddress = [
+  SITE.address.streetAddress,
+  SITE.address.neighborhood,
+  `${SITE.address.city} - ${SITE.address.state}`,
+  SITE.address.postalCode,
+]
+  .filter(Boolean)
+  .join(', ')
+
+export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  `${SITE.name}, ${fullAddress}`
+)}`

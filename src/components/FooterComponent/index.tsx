@@ -1,4 +1,5 @@
-import { Instagram, Mail } from "lucide-react"
+import { fullAddress, mapsUrl, SITE } from "@/config/site"
+import { Instagram, Mail, MapPin } from "lucide-react"
 import {
   FooterContainer,
   FooterLinks,
@@ -56,6 +57,19 @@ export const FooterComponent = () => {
           <Instagram />
         </SocialIcon>
       </FooterSocials>
+
+      <address className="mt-5 flex flex-col items-center gap-1 text-sm not-italic text-white md:text-base">
+        <a
+          href={mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-white underline-offset-4 hover:underline"
+        >
+          <MapPin size={16} aria-hidden />
+          {fullAddress}
+        </a>
+        <span>Segunda a sábado, das 9h às 17h · WhatsApp {SITE.phone}</span>
+      </address>
 
       <FooterText>
         &copy; {new Date().getFullYear()} Studio Karen Frazão. Todos os direitos
