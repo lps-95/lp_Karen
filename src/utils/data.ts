@@ -54,6 +54,7 @@ export const products: Product[] = [
     id: 5,
     currentPrice: 30.0,
     image: 'img5.avif',
+    imagePosition: 'center bottom',
     title: 'Escova Fabulos Hair',
     description:
       'A escova Fabulos Hair ativa a circulação sanguínea do couro cabeludo promovendo o crescimento saudável dos fios, desembaraça sem rompimentos e auxilia na prevenção de pontas duplas e fios afinados.',
