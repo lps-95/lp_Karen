@@ -8,11 +8,11 @@ function formatStart(date: Date) {
   const day = date.toLocaleDateString('pt-BR', {
     day: '2-digit',
     month: '2-digit',
-    timeZone: 'America/Sao_Paulo',
+    timeZone: 'America/Manaus',
   })
   const hour = date.toLocaleTimeString('pt-BR', {
     hour: 'numeric',
-    timeZone: 'America/Sao_Paulo',
+    timeZone: 'America/Manaus',
   })
   return `${day} às ${hour}h`
 }
@@ -37,7 +37,7 @@ export function BlackFridayCountdown() {
       <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-center gap-4 md:flex-row md:gap-16">
         <div className="flex flex-col items-center gap-1 md:items-start">
           <span className="text-[11px] uppercase tracking-[0.3em] text-[#D8BE93] md:text-[12px]">
-            Em breve · {formatStart(BLACK_FRIDAY_CONFIG.startDate)}
+            Em breve · {formatStart(BLACK_FRIDAY_CONFIG.startDate)} (Manaus)
           </span>
           <span className="font-['LeagueGothic'] text-[48px] uppercase leading-[0.9] md:text-[64px]">
             <span className={GOLD_FOIL}>Black</span> Friday
