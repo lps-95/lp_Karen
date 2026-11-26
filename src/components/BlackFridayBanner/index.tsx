@@ -20,11 +20,11 @@ function formatEnd(date: Date) {
   const day = date.toLocaleDateString('pt-BR', {
     day: '2-digit',
     month: '2-digit',
-    timeZone: 'America/Sao_Paulo',
+    timeZone: 'America/Manaus',
   })
   const hour = date.toLocaleTimeString('pt-BR', {
     hour: '2-digit',
-    timeZone: 'America/Sao_Paulo',
+    timeZone: 'America/Manaus',
   })
   return `${day} às ${hour}h`
 }
@@ -161,7 +161,7 @@ export function BlackFridayHero() {
                 </svg>
               </a>
               <span className="w-full text-center text-[13px] text-[#BDB6AA] sm:w-auto sm:text-left">
-                Válido até {endText}
+                Válido até {endText} (horário de Manaus)
               </span>
             </div>
           </motion.div>

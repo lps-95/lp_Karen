@@ -22,7 +22,8 @@ export const BLACK_FRIDAY_CONFIG = {
   // Horário de Brasília
   // 09:00 no horário de Manaus (UTC-4) = 10:00 em Brasília
   startDate: new Date('2026-11-26T09:00:00-04:00'),
-  endDate: new Date('2026-11-28T19:00:00-03:00'),
+  // 19:00 no horário de Manaus (UTC-4) = 20:00 em Brasília
+  endDate: new Date('2026-11-28T19:00:00-04:00'),
 
   // Desconto (%) por id de produto (ver src/utils/data.ts).
   // Produto fora da lista = sem desconto.
