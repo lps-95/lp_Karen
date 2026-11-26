@@ -9,6 +9,8 @@ export interface Product {
   discount?: number
   /** 'contain' = mostra a foto inteira (fotos horizontais, como kits) */
   imageFit?: 'cover' | 'contain'
+  /** Enquadramento da foto no card (CSS object-position), ex.: 'center bottom' */
+  imagePosition?: string
 }
 
 export const products: Product[] = [
@@ -124,7 +126,7 @@ export const products: Product[] = [
     id: 13,
     currentPrice: 354.7,
     image: 'help-my-hair.avif',
-    imageFit: 'contain',
+    imagePosition: 'center bottom',
     title: 'Kit Help My Hair SOS',
     description:
       'Tratamento tricológico profissional para cabelos elásticos, emborrachados, fragilizados e quebradiços. Shampoo, Máscara e Fluido SOS atuam no CMC e no córtex, repondo componentes estruturais e devolvendo resistência e integridade à fibra. Linha de uso profissional, não indicada para manutenção diária.',

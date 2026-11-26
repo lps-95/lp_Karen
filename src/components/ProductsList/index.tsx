@@ -113,6 +113,11 @@ export function ProductsGrid() {
                   alt={`Imagem do ${product.title}`}
                   loading="lazy"
                   className={`lazy-image ${product.imageFit === 'contain' ? 'fit-contain' : ''}`}
+                  style={
+                    product.imagePosition
+                      ? { objectPosition: product.imagePosition }
+                      : undefined
+                  }
                 />
 
                 {!product.inStock && (

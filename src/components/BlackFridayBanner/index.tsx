@@ -185,11 +185,11 @@ export function BlackFridayHero() {
                         Linha profissional
                       </span>
                     </div>
-                    <div className="mx-3 rounded-[18px] bg-[#F6F6F6] px-3 py-4">
+                    <div className="mx-3 overflow-hidden rounded-[18px]">
                       <img
                         src={featured.image}
                         alt={featured.title}
-                        className="block h-[220px] w-full object-contain md:h-[330px]"
+                        className="block h-[260px] w-full object-cover object-[50%_82%] md:h-[360px]"
                       />
                     </div>
                     <div className="flex flex-wrap items-end justify-between gap-3 px-5 pb-5 pt-4">
