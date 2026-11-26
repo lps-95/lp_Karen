@@ -38,6 +38,9 @@ export const BLACK_FRIDAY_CONFIG = {
     11: 20, // Máscara CMC
     12: 10, // Perfume e Balm
     13: 25, // Kit Help My Hair SOS
+    14: 25, // Shampoo Help My Hair SOS
+    15: 25, // Fluido Help My Hair SOS
+    16: 25, // Máscara Help My Hair SOS
   } as Record<number, number>,
 
   // Produto em destaque no topo durante a Black Friday

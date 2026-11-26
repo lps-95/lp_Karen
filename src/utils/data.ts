@@ -133,4 +133,34 @@ export const products: Product[] = [
       'Tratamento tricológico profissional para cabelos elásticos, emborrachados, fragilizados e quebradiços. Shampoo, Máscara e Fluido SOS atuam no CMC e no córtex, repondo componentes estruturais e devolvendo resistência e integridade à fibra. Linha de uso profissional, não indicada para manutenção diária.',
     inStock: true,
   },
+  {
+    id: 14,
+    currentPrice: 89.9,
+    image: 'shampoo-sos.avif',
+    imagePosition: 'center bottom',
+    title: 'Shampoo Help My Hair SOS',
+    description:
+      'Limpeza Biomimética antioxidante, regenera e equilibra o pH. Nutriamino Cap, Nano Link e Pimenta-Rosa para reposição estrutural em cabelos fragilizados e elásticos.',
+    inStock: true,
+  },
+  {
+    id: 15,
+    currentPrice: 119.9,
+    image: 'fluido-sos.avif',
+    imagePosition: 'center bottom',
+    title: 'Fluido Help My Hair SOS',
+    description:
+      'Repositor estrutural sem enxágue com tecnologia de ação contínua. Potencializado por Algas Marrons e Pimenta-Rosa para máxima regeneração do CMC e córtex.',
+    inStock: true,
+  },
+  {
+    id: 16,
+    currentPrice: 144.9,
+    image: 'mascara-sos.avif',
+    imagePosition: 'center bottom',
+    title: 'Máscara Help My Hair SOS',
+    description:
+      'Regeneração estrutural biomimética profunda com Nutriamino Cap e Pimenta-Rosa. Combate radicais livres e repara danos oxidativos em cabelos emborrachados e quebradiços.',
+    inStock: true,
+  },
 ]
