@@ -10,6 +10,7 @@ export const AboutContainer = styled(Container)`
   text-align: center;
   width: 100vw;
   min-height: 100vh;
+  min-height: 100svh;
   padding-bottom: 4rem;
   background-color: ${({ theme }) => theme.colors.brunswickGreen};
 

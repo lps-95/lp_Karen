@@ -7,6 +7,7 @@ export const ContainerCTA = styled.div`
   margin: 0;
   width: 100vw;
   min-height: 100vh;
+  min-height: 100svh;
   padding: 4rem 0;
 
   background-color: ${({ theme }) => theme.colors.green};

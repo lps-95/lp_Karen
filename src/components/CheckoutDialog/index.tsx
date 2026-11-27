@@ -37,6 +37,11 @@ function getSafeUnitPrice(item: CartItem, _isCampaignActive: boolean) {
   return getEffectiveUnitPrice(item)
 }
 
+function isInAppBrowser() {
+  if (typeof navigator === 'undefined') return false;
+  return /Instagram|FBAN|FBAV|FB_IAB|FBIOS|WhatsApp|Line\/|; wv\)/i.test(navigator.userAgent);
+}
+
 function formatBRL(value: number) {
   return value.toFixed(2).replace(".", ",");
 }
@@ -92,18 +97,23 @@ export function CheckoutDialog({
     setStep('sending');
     setWaFallback(waUrl);
 
-    const newWindow = window.open(waUrl, '_blank', 'noopener,noreferrer');
-
-    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+    // Navegadores internos (Instagram, Facebook, WhatsApp) bloqueiam janelas
+    // novas: abre o WhatsApp direto, uma única vez.
+    if (isInAppBrowser()) {
       window.location.href = waUrl;
+      return;
     }
 
-    setTimeout(() => {
-      onOpenChange(false);
-      setStep('cart');
-      setCustomerName('');
-      setWaFallback(null);
-    }, 2000);
+    // Demais navegadores: tenta aba nova (sem 'noopener' nos recursos, senão o
+    // retorno é sempre null e o WhatsApp abria duas vezes); se bloquear, abre aqui.
+    const newWindow = window.open(waUrl, '_blank');
+    if (newWindow) {
+      newWindow.opener = null;
+    } else {
+      window.location.href = waUrl;
+    }
+    // A tela "Redirecionando" continua aberta com o botão de reserva até a
+    // cliente fechar (antes sumia em 2s e o pedido se perdia se o WhatsApp não abrisse).
   };
 
   const handleClose = () => {
@@ -308,18 +318,25 @@ export function CheckoutDialog({
               />
               <h3 className="text-xl font-bold mb-2">Redirecionando para o WhatsApp...</h3>
               <p className="text-gray-600 text-center">
-                Aguarde um momento enquanto preparamos seu pedido
+                Seu pedido está pronto. Se o WhatsApp não abrir sozinho, toque no botão abaixo.
               </p>
 
               {waFallback && (
-                <a
-                  href={waFallback}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
-                >
-                  Se não abrir automaticamente, toque aqui
-                </a>
+                <>
+                  <a
+                    href={waFallback}
+                    className="mt-6 inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-green-600 px-6 py-3 text-base font-semibold text-white transition hover:bg-green-700"
+                  >
+                    Abrir WhatsApp com meu pedido
+                  </a>
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    className="mt-3 min-h-[44px] px-4 text-sm text-gray-600 underline underline-offset-4"
+                  >
+                    Voltar para a loja
+                  </button>
+                </>
               )}
             </motion.div>
           )}
