@@ -17,16 +17,24 @@ function formatBRL(value: number) {
 }
 
 function formatEnd(date: Date) {
-  const day = date.toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: '2-digit',
-    timeZone: 'America/Manaus',
-  })
-  const hour = date.toLocaleTimeString('pt-BR', {
-    hour: '2-digit',
-    timeZone: 'America/Manaus',
-  })
-  return `${day} às ${hour}h`
+  try {
+    const day = date.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      timeZone: 'America/Manaus',
+    })
+    const hour = date.toLocaleTimeString('pt-BR', {
+      hour: '2-digit',
+      timeZone: 'America/Manaus',
+    })
+    return `${day} às ${hour}h`
+  } catch {
+    // fallback sem fuso (aparelhos antigos sem a base de fusos horários)
+    const d = new Date(date.getTime() - 4 * 3_600_000) // UTC-4 = Manaus
+    const dd = String(d.getUTCDate()).padStart(2, '0')
+    const mm = String(d.getUTCMonth() + 1).padStart(2, '0')
+    return `${dd}/${mm} às ${String(d.getUTCHours()).padStart(2, '0')}h`
+  }
 }
 
 export function BlackFridayHero() {

@@ -6,6 +6,16 @@ type Props = {
   children: ReactNode
 }
 
+/**
+ * Mostra a página de manutenção SÓ quando ela é ligada manualmente
+ * (SYSTEM_CONFIG.MAINTENANCE_MODE).
+ *
+ * Antes, qualquer erro de JavaScript na página (inclusive de scripts de
+ * terceiros, como os navegadores internos do Instagram/Facebook/WhatsApp,
+ * extensões ou o Google Analytics) trocava o site inteiro pela manutenção,
+ * e em alguns aparelhos a página "não abria". Esses erros agora só são
+ * registrados no console.
+ */
 export function AppGuard({ children }: Props) {
   const [isBroken, setIsBroken] = useState(false)
   const [isChecking, setIsChecking] = useState(true)
@@ -13,40 +23,30 @@ export function AppGuard({ children }: Props) {
   useEffect(() => {
     let mounted = true
 
-    function handleOffline() {
-      setIsBroken(true)
+    function logWindowError(event: ErrorEvent) {
+      console.warn('Erro de script ignorado (a página continua):', event.message)
     }
 
-    function handleWindowError() {
-      setIsBroken(true)
+    function logPromiseRejection(event: PromiseRejectionEvent) {
+      console.warn('Promise rejeitada ignorada (a página continua):', event.reason)
     }
 
-    function handlePromiseRejection() {
-      setIsBroken(true)
-    }
+    window.addEventListener('error', logWindowError)
+    window.addEventListener('unhandledrejection', logPromiseRejection)
 
-    async function check() {
-      try {
-        await runCriticalHealthChecks()
-
-        window.addEventListener('offline', handleOffline)
-        window.addEventListener('error', handleWindowError)
-        window.addEventListener('unhandledrejection', handlePromiseRejection)
-      } catch (error) {
-        console.error('Falha crítica detectada:', error)
+    runCriticalHealthChecks()
+      .catch((error) => {
+        console.error('Manutenção ativada:', error)
         if (mounted) setIsBroken(true)
-      } finally {
+      })
+      .finally(() => {
         if (mounted) setIsChecking(false)
-      }
-    }
-
-    check()
+      })
 
     return () => {
       mounted = false
-      window.removeEventListener('offline', handleOffline)
-      window.removeEventListener('error', handleWindowError)
-      window.removeEventListener('unhandledrejection', handlePromiseRejection)
+      window.removeEventListener('error', logWindowError)
+      window.removeEventListener('unhandledrejection', logPromiseRejection)
     }
   }, [])
 

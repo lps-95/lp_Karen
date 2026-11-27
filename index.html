@@ -35,6 +35,13 @@
     <!-- Quem roda JS vê o app; o resumo em HTML fica só para robôs sem JS -->
     <script>
       document.documentElement.classList.add('js')
+      // Se o app não montar em 8s (navegador antigo/rede ruim), mostra o
+      // resumo em HTML (produtos, preços, WhatsApp) em vez de tela em branco.
+      setTimeout(function () {
+        if (document.getElementById('seo-fallback')) {
+          document.documentElement.classList.remove('js')
+        }
+      }, 8000)
     </script>
     <style>
       .js #seo-fallback { display: none; }

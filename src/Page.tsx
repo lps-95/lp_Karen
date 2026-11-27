@@ -2,6 +2,7 @@ import { BlackFridayHero } from "@/components/BlackFridayBanner"
 import { BlackFridayCountdown } from "@/components/BlackFridayCountdown"
 import { Divider } from "@/components/Divider"
 import { FooterComponent } from "@/components/FooterComponent"
+import { SectionBoundary } from "@/components/SectionBoundary"
 import { useCampaignStatus } from "@/config/black-friday"
 import { lazy, Suspense } from "react"
 import { About } from "./Sessions/About"
@@ -29,21 +30,37 @@ export const LandingPage = () => {
 
   return (
     <>
-      {campaignStatus === 'before' && <BlackFridayCountdown />}
-      {campaignStatus === 'live' && <BlackFridayHero />}
+      <SectionBoundary>
+        {campaignStatus === 'before' && <BlackFridayCountdown />}
+        {campaignStatus === 'live' && <BlackFridayHero />}
+      </SectionBoundary>
 
       <Container>
         <About />
         <CTA />
         <Divider />
         <ProductList />
-        <Suspense fallback={null}>
-          <Product />
-          <Divider />
-          <PresentationKit />
-          <TestimonialSectionComponent />
-          <FAQ />
-        </Suspense>
+        <SectionBoundary>
+          <Suspense fallback={null}>
+            <Product />
+          </Suspense>
+        </SectionBoundary>
+        <Divider />
+        <SectionBoundary>
+          <Suspense fallback={null}>
+            <PresentationKit />
+          </Suspense>
+        </SectionBoundary>
+        <SectionBoundary>
+          <Suspense fallback={null}>
+            <TestimonialSectionComponent />
+          </Suspense>
+        </SectionBoundary>
+        <SectionBoundary>
+          <Suspense fallback={null}>
+            <FAQ />
+          </Suspense>
+        </SectionBoundary>
         <FooterComponent />
       </Container>
     </>

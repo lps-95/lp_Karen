@@ -5,16 +5,24 @@ const GOLD_FOIL =
   'bg-[linear-gradient(180deg,#FBEFD6_0%,#E2C690_45%,#B48F55_75%,#E8CF9C_100%)] bg-clip-text text-transparent'
 
 function formatStart(date: Date) {
-  const day = date.toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: '2-digit',
-    timeZone: 'America/Manaus',
-  })
-  const hour = date.toLocaleTimeString('pt-BR', {
-    hour: 'numeric',
-    timeZone: 'America/Manaus',
-  })
-  return `${day} às ${hour}h`
+  try {
+    const day = date.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      timeZone: 'America/Manaus',
+    })
+    const hour = date.toLocaleTimeString('pt-BR', {
+      hour: 'numeric',
+      timeZone: 'America/Manaus',
+    })
+    return `${day} às ${hour}h`
+  } catch {
+    // fallback sem fuso (aparelhos antigos sem a base de fusos horários)
+    const d = new Date(date.getTime() - 4 * 3_600_000) // UTC-4 = Manaus
+    const dd = String(d.getUTCDate()).padStart(2, '0')
+    const mm = String(d.getUTCMonth() + 1).padStart(2, '0')
+    return `${dd}/${mm} às ${String(d.getUTCHours()).padStart(2, '0')}h`
+  }
 }
 
 /** Faixa "começa em", exibida antes do início da Black Friday. */

@@ -24,5 +24,18 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>
 )
 
+// Se um arquivo da página não baixar (comum logo após um deploy novo),
+// recarrega uma única vez para pegar a versão atual.
+window.addEventListener('vite:preloadError', (event) => {
+  try {
+    if (sessionStorage.getItem('reloaded-after-preload-error')) return
+    sessionStorage.setItem('reloaded-after-preload-error', '1')
+  } catch {
+    return
+  }
+  event.preventDefault()
+  window.location.reload()
+})
+
 // Animações ao rolar a página (antes vinham de um CDN externo sem versão fixa)
 AOS.init()
