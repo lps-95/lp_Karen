@@ -30,7 +30,7 @@ export const BLACK_FRIDAY_CONFIG = {
   productDiscounts: {
     1: 15, // Ampola de Reestruturação do Córtex
     4: 20, // Máscara Therapy
-    5: 30, // Escova Fabulos Hair
+    5: 25, // Escova Fabulos Hair
     6: 30, // Perfume Antifrizz
     7: 40, // Reestruturador Bifásico Therapy
     8: 15, // Shampoo CMC
